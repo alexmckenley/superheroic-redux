@@ -25,7 +25,6 @@ angular.module('shr.reducers.message', [
                 newState.messages[action.message.id] = action.message;
                 return newState;
             case chatServerActions.RECEIVE_ALL:
-                console.log(addMessages(action.messages));
                 return { messages: addMessages(action.messages) };
             default:
                 return state;
