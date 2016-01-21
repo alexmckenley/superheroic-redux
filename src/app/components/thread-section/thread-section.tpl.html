@@ -1,0 +1,6 @@
+<div class="thread-section">
+    <div class="thread-count"><span ng-if="ctrl.unreadCount">Unread threads: {{ ctrl.unreadCount }}</span></div>
+    <ul class="thread-list">
+        <thread-list-item thread="thread" current-thread-id="ctrl.currentThreadId" ng-repeat="thread in ctrl.threads"></thread-list-item>
+    </ul>
+</div>

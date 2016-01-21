@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ng-app="shr">
+  <head>
+    <title>superheroic-redux</title>
+    <link href="http://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css">
+
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+  </head>
+
+  <body ui-view></body>
+
+</html>

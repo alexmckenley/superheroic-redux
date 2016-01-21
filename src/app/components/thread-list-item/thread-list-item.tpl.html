@@ -1,0 +1,5 @@
+<li class="thread-list-item" ng-class="{ active: ctrl.getThread().id === ctrl.getCurrentThreadId() }" ng-click="ctrl.selectThread()">
+    <h5 class="thread-name" >{{ ctrl.getThread().name }}</h5>
+    <div class="thread-time" >{{ ctrl.getThread().lastMessage.date.toLocaleTimeString() }}</div>
+    <div class="thread-last-message" >{{ ctrl.getThread().lastMessage.text }}</div>
+</li>
