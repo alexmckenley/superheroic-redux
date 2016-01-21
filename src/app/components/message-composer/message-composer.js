@@ -1,5 +1,6 @@
 angular.module('shr.components.message-composer', [
-    'shr.actions.chat-message'
+    'shr.actions.chat-message',
+    'shr.store'
 ])
 
 .directive('messageComposer', function messageComposerDirective() {
@@ -10,7 +11,7 @@ angular.module('shr.components.message-composer', [
     };
 })
 
-.controller('MessageComposerCtrl', function(chatMessageActions) {
+.controller('MessageComposerCtrl', function(store, chatMessageActions) {
     var ctrl = this,
         ENTER_KEY_CODE = 13;
 
@@ -19,9 +20,9 @@ angular.module('shr.components.message-composer', [
     function handleKeypress(event) {
         if (event.keyCode === ENTER_KEY_CODE && ctrl.text) {
             event.preventDefault();
-            chatMessageActions.createMessage(ctrl.text);
+            store.dispatch(chatMessageActions.createMessage(ctrl.text, store.getState().threadReducer.currentID));
 
-            // two-way data binding makes it easy to deal with the textbox value here.
+            // two-way data binding makes it easy to deal with the textarea value here.
             ctrl.text = '';
         }
     }

@@ -1,22 +1,20 @@
-angular.module('shr.utils.chat-web-api', [
-    'shr.actions.chat-server'
-])
+angular.module('shr.utils.chat-web-api', [])
 
-.factory('chatWebApiUtils', function chatWebApiUtils(chatServerActions) {
+.factory('chatWebApiUtils', function chatWebApiUtils($q) {
     var util = {
        getAllMessages: getAllMessages, 
        createMessage: createMessage
    };
 
    function getAllMessages() {
-        // simulate retrieving data from a database
-        var rawMessages = JSON.parse(localStorage.getItem('messages'));
+       // simulate retrieving data from a database
+       var rawMessages = JSON.parse(localStorage.getItem('messages'));
 
-        // simulate success callback
-        chatServerActions.receiveAll(rawMessages);
-    }
+       return $q.when(rawMessages);
+   }
 
     function createMessage(message, threadName) {
+        var deferred = $q.defer();
         // simulate writing to a database
         var rawMessages = JSON.parse(localStorage.getItem('messages'));
         var timestamp = Date.now();
@@ -35,8 +33,10 @@ angular.module('shr.utils.chat-web-api', [
 
         // simulate success callback
         setTimeout(function() {
-            chatServerActions.receiveCreatedMessage(createdMessage);
+            deferred.resolve(createdMessage);
         }, 0);
+
+        return deferred.promise;
     }
 
     return util;

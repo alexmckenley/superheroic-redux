@@ -48,7 +48,7 @@ angular.module('shr.chat-example-data', [])
             {
                 id: 'm_6',
                 threadID: 't_3',
-                threadName: 'Functional Heads',
+                threadName: 'Bill and Brian',
                 authorName: 'Bill',
                 text: 'Hey Brian, are you going to be talking about functional stuff?',
                 timestamp: Date.now() - 49999

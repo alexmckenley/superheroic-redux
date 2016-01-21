@@ -5,14 +5,13 @@ angular.module('shr.utils.chat-message', [])
         convertRawMessage: convertRawMessage
     };
 
-    function convertRawMessage(rawMessage, currentThreadID) {
+    function convertRawMessage(rawMessage) {
         return {
             id: rawMessage.id,
             threadID: rawMessage.threadID,
             authorName: rawMessage.authorName,
             date: new Date(rawMessage.timestamp),
-            text: rawMessage.text,
-            isRead: rawMessage.threadID === currentThreadID
+            text: rawMessage.text
         };
     }
 

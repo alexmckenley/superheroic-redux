@@ -1,5 +1,6 @@
 angular.module('shr.components.thread-list-item', [
-	'shr.actions.chat-thread'
+    'shr.actions.chat-thread',
+    'shr.store'
 ])
 
 .directive('threadListItem', function threadListItemDirective() {
@@ -14,12 +15,12 @@ angular.module('shr.components.thread-list-item', [
   };
 })
 
-.controller('ThreadListItemCtrl', function(chatThreadActions) {
-	var ctrl = this;
+.controller('ThreadListItemCtrl', function(store, chatThreadActions) {
+    var ctrl = this;
 
-	ctrl.selectThread = selectThread;
+    ctrl.selectThread = selectThread;
 
-	function selectThread() {
-		chatThreadActions.clickThread(this.getThread().id);
-	}
+    function selectThread() {
+        store.dispatch(chatThreadActions.clickThread(this.getThread().id));
+    }
 });

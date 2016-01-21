@@ -1,7 +1,6 @@
 angular.module('shr.components.thread-section', [
-    'shr.stores.message',
-    'shr.stores.thread',
-    'shr.stores.unread-thread'
+    'shr.store',
+    'shr.helpers.thread'
 ])
 
 .directive('threadSection', function threadSectionDirective() {
@@ -12,22 +11,24 @@ angular.module('shr.components.thread-section', [
     };
 })
 
-.controller('ThreadSectionController', function(messageStore, threadStore, unreadThreadStore) {
+.controller('ThreadSectionController', function(store, threadHelpers) {
     var ctrl = this;
 
     init();
 
     function init() {
-        messageStore.listen(getStateFromStores);
-        threadStore.listen(getStateFromStores);
-        unreadThreadStore.listen(getStateFromStores);
+        store.subscribe(getStateFromStore);
 
-        getStateFromStores();
+        getStateFromStore();
     }
 
-    function getStateFromStores() {
-        ctrl.threads = threadStore.getAllChrono();
-        ctrl.currentThreadId = threadStore.getCurrentID();
-        ctrl.unreadCount = unreadThreadStore.getCount();
+    function getStateFromStore() {
+        var state = store.getState(),
+            threads = state.threadReducer.threads,
+            currentID = state.threadReducer.currentID;
+
+        ctrl.currentThreadId = currentID;
+        ctrl.threads = threadHelpers.getAllChrono(threads);
+        ctrl.unreadCount = threadHelpers.getUnreadCount(threads);
     }
 });

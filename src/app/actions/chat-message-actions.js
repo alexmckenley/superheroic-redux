@@ -9,15 +9,15 @@ angular.module('shr.actions.chat-message', [
         createMessage: createMessage
     };
 
-    function createMessage(text) {
+    function createMessage(text, threadID) {
         return function(dispatch) {
-            var message = chatMessageDataUtils.getCreatedMessageData(text);
+            var message = chatMessageDataUtils.getCreatedMessageData(text, threadID);
             chatWebApiUtils.createMessage(message)
                 .then(function(createdMessage) {
                     dispatch(chatServerActions.receiveCreatedMessage(createdMessage));
-                })
+                });
         };
-    };
+    }
 
     return actions;
 });

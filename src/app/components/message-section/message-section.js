@@ -1,7 +1,6 @@
 angular.module('shr.components.message-section', [
     'scroll-bottom',
-    'shr.stores.message',
-    'shr.stores.thread'
+    'shr.helpers.message'
 ])
 
 .directive('messageSection', function messageSectionDirective() {
@@ -12,20 +11,24 @@ angular.module('shr.components.message-section', [
     };
 })
 
-.controller('MessageSectionCtrl', function(messageStore, threadStore) {
+.controller('MessageSectionCtrl', function(store, messageHelpers) {
     var ctrl = this;
 
     init();
 
     function init() {
-        messageStore.listen(getStateFromStores);
-        threadStore.listen(getStateFromStores);
+        store.subscribe(getStateFromStore);
 
-        getStateFromStores();
+        getStateFromStore();
     }
 
-    function getStateFromStores() {
-        ctrl.messages = messageStore.getAllForCurrentThread();
-        ctrl.thread = threadStore.getCurrent();
+    function getStateFromStore() {
+        var state = store.getState(),
+            messages = state.messageReducer.messages,
+            threads = state.threadReducer.threads,
+            currentID = state.threadReducer.currentID;
+
+        ctrl.messages = messageHelpers.getAllForThread(messages, currentID);
+        ctrl.thread = threads[currentID];
     }
 });
