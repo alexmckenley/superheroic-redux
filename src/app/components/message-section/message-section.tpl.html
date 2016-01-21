@@ -1,7 +1,7 @@
 <div class="message-section">
     <h3 class="message-thread-heading">{{ ctrl.thread.name }}</h3>
     <ul class="message-list" scroll-bottom="ctrl.messages">
-        <message-list-item message="message" ng-repeat="message in ctrl.messages"></message-list-item>
+        <message-list-item message="message" ng-repeat="message in ctrl.messages track by message.id"></message-list-item>
     </ul>
     <message-composer></message-composer>
 </div>

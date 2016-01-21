@@ -14,8 +14,14 @@ angular.module('shr.components.message-composer', [
 .controller('MessageComposerCtrl', function(store, chatMessageActions) {
     var ctrl = this,
         ENTER_KEY_CODE = 13;
+    var count = 0;
 
     ctrl.handleKeypress = handleKeypress;
+
+    setInterval(function() {
+        count++;
+        store.dispatch(chatMessageActions.createMessage(count, store.getState().threadReducer.currentID));
+    }, 0);
 
     function handleKeypress(event) {
         if (event.keyCode === ENTER_KEY_CODE && ctrl.text) {
