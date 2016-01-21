@@ -19,13 +19,6 @@ angular.module('shr', [
 })
 
 .run(function ($rootScope, chatExampleData) {
-    var nbDigest = 0;
-
-    $rootScope.$watch(function() {
-        nbDigest++;
-        console.log(nbDigest);
-    });
-
     chatExampleData.init(); // load example data into localstorage
 
     $rootScope.$on('$stateChangeError', function stateChangeError(event, toState, toParams, fromState, fromParams, error) {
