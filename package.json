@@ -12,7 +12,9 @@
     "type": "git",
     "url": "git@github.com:alexmckenley/superheroic-redux.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "redux": "^3.0.5"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-bump": "0.0.6",
